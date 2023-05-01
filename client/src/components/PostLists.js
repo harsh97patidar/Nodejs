@@ -55,6 +55,15 @@ function PopupInput(props) {
     <div className="popup-overlay">
       <div className="popup">
         <div className="App">
+          <button
+            type="submit"
+            className="btn btn-primary"
+            onClick={() => {
+              props.onClose();
+            }}
+          >
+            Close
+          </button>
           <h1>Create Post</h1>
           <form onSubmit={handleSubmit}>
             <div className="form-group">
@@ -80,12 +89,6 @@ function PopupInput(props) {
             <div className="form-group">
               <label htmlFor="post-image">Image</label>
               <UploadImage setFile={setFile} />
-              {/* <input
-                type="file"
-                className="form-control-file"
-                id="post-image"
-                onChange={handleImageChange}
-              /> */}
             </div>
             <button type="submit" className="btn btn-primary">
               Create Post
@@ -114,24 +117,29 @@ export function PostList() {
   if (error) return <h1 className="error-msg">{error}</h1>;
 
   return (
-    <div className="block-grid">
-      {posts?.data.map((post) => {
-        return (
-          <h1 key={post.id}>
-            <Link to={`/posts/${post.id}`}>
-              <div className="card-container">
-                <Card
-                  title={post.title}
-                  body={post.body}
-                  images={post.images}
-                />
-              </div>
-            </Link>
-          </h1>
-        );
-      })}
-      <button onClick={handleButtonClick}>Add Post</button>
-      {isPopupOpen && <PopupInput onClose={handlePopupClose} />}
+    <div>
+      {" "}
+      <button className="add-post-btn" onClick={handleButtonClick}>
+        Add Post
+      </button>
+      <div className="block-grid">
+        {isPopupOpen && <PopupInput onClose={handlePopupClose} />}
+        {posts?.data.map((post) => {
+          return (
+            <h1 key={post.id}>
+              <Link to={`/posts/${post.id}`}>
+                <div className="card-container">
+                  <Card
+                    title={post.title}
+                    body={post.body}
+                    images={post.images}
+                  />
+                </div>
+              </Link>
+            </h1>
+          );
+        })}
+      </div>
     </div>
   );
 }
