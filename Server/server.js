@@ -1,6 +1,7 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const errorHandler = require("./middleware/error");
+const runMigration = require("./allMigration");
 // const authenticateToken = require("./authenticate");
 const bodyParser = require("body-parser");
 const cors = require("cors");
@@ -35,4 +36,7 @@ app.use("/v1", imageRoutes);
 
 app.use(errorHandler);
 
-app.listen({ port: process.env.PORT });
+app.listen(process.env.PORT, async () => {
+  console.log(`Server is listening on port ${process.env.PORT}`);
+  await runMigration();
+});

@@ -1,9 +1,21 @@
 /* Replace with your SQL commands */
 
+-- migration_name.up.sql
+CREATE TABLE IF NOT EXISTS "testNew" (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(255),
+  email VARCHAR(255) UNIQUE,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+
+/* Replace with your SQL commands */
+
 /* Replace with your SQL commands */
 
 -- CreateTable
-CREATE TABLE "post" (
+CREATE TABLE IF NOT EXISTS "post" (
     "id" TEXT NOT NULL,
     "title" TEXT NOT NULL,
     "body" TEXT NOT NULL,
@@ -12,7 +24,7 @@ CREATE TABLE "post" (
 );
 
 -- CreateTable
-CREATE TABLE "user" (
+CREATE TABLE IF NOT EXISTS "user" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
 
@@ -20,7 +32,7 @@ CREATE TABLE "user" (
 );
 
 -- CreateTable
-CREATE TABLE "comment" (
+CREATE TABLE IF NOT EXISTS "comment" (
     "id" TEXT NOT NULL,
     "message" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -33,7 +45,7 @@ CREATE TABLE "comment" (
 );
 
 -- CreateTable
-CREATE TABLE "like" (
+CREATE TABLE IF NOT EXISTS "like" (
     "userId" TEXT NOT NULL,
     "commentId" TEXT NOT NULL,
 
