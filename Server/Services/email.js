@@ -1,5 +1,5 @@
-const nodemailer = require("nodemailer");
 const dotenv = require("dotenv");
+const nodemailer = require("nodemailer");
 
 dotenv.config();
 
@@ -14,7 +14,7 @@ const transporter = nodemailer.createTransport({
 async function sendEmail({ to, subject, text }) {
   try {
     await transporter.sendMail({
-      from: EMAIL,
+      from: process.env.EMAIL,
       to: to,
       subject: subject,
       text: text,
@@ -26,7 +26,7 @@ async function sendEmail({ to, subject, text }) {
 }
 
 sendEmail({
-  to: "",
+  to: "harsh97patidar@gmail.com",
   subject: "testing email service",
   text: "sample text",
 }).catch(console.error);
