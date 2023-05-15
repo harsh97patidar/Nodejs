@@ -1,4 +1,5 @@
 const express = require("express");
+const morgan = require("morgan");
 const dotenv = require("dotenv");
 const errorHandler = require("./middleware/error");
 const runMigration = require("./allMigration");
@@ -14,6 +15,9 @@ const imageRoutes = require("./routes/image");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+// Log API calls using Morgan
+app.use(morgan("combined"));
 
 dotenv.config();
 
