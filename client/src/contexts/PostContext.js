@@ -25,7 +25,7 @@ export function PostProvider({ children }) {
 
   useEffect(() => {
     if (post?.comments == null) return;
-    setComments(post.comments);
+    setComments(post?.comments);
   }, [post?.comments]);
 
   function getReplies(parentId) {
@@ -84,7 +84,7 @@ export function PostProvider({ children }) {
     <Context.Provider
       value={{
         post: { id, ...post },
-        rootComments: commentsByParentId[0],
+        rootComments: commentsByParentId[null],
         getReplies,
         createLocalComment,
         updateLocalComment,
