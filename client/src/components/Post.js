@@ -25,7 +25,7 @@ export function Post() {
         post?.images?.map((i) => {
           return (
             <img
-              src={`http://localhost:8000/v1/image/${i.filename}`}
+              src={`${process.env.REACT_APP_SERVER_URL}/image/${i.filename}`}
               alt="Card"
               height="350"
             />

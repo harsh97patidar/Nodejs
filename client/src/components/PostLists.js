@@ -109,10 +109,14 @@ export function PostList() {
           {posts?.data.map((card) => (
             <Link to={`/posts/${card.id}`}>
               <div className="card" key={card.id}>
-                {card.image ? (
+                {console.log(
+                  "image",
+                  `${process.env.REACT_APP_SERVER_URL}/image/${card?.filename}`
+                )}
+                {card?.filename ? (
                   <img
-                    src={card.image}
-                    alt={card.title}
+                    src={`${process.env.REACT_APP_SERVER_URL}/image/${card?.filename}`}
+                    alt="card"
                     className="card-image"
                   />
                 ) : (

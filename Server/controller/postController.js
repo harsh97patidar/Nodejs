@@ -4,7 +4,10 @@ const axios = require("axios");
 const ErrorHandler = require("../utils/errorHandler");
 
 exports.getPosts = catchAsyncErrors(async (req, res, next) => {
-  const results = await client.query(`Select * from post`);
+  const results = await client.query(`SELECT p.*, i.filename
+  FROM post p
+  LEFT JOIN image i ON p.id = i."postId"
+`);
 
   res.status(200).json({
     success: true,
