@@ -25,8 +25,12 @@ async function sendEmail({ to, subject, text }) {
   }
 }
 
-sendEmail({
-  to: "harsh97patidar@gmail.com",
-  subject: "testing email service",
-  text: "sample text",
-}).catch(console.error);
+async function sendEmailToUsers() {
+  // sendEmail({
+  //   to: "harsh97patidar@gmail.com",
+  //   subject: "testing email service",
+  //   text: "sample text",
+  // }).catch(console.error);
+}
+
+sendEmailToUsers();

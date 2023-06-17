@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import { Post } from "./components/Post";
 import { PostList } from "./components/PostLists";
 import { PostProvider } from "./contexts/PostContext";
+import Login from "./components/login";
 
 function App() {
   console.log("In app>");
@@ -19,6 +20,7 @@ function App() {
             </PostProvider>
           }
         />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </div>
   );

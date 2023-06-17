@@ -20,6 +20,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "devStart": "nodemon server.js",
     "emailStart": "nodemon services/email.js",
+    "createPosts": "nodemon services/createPosts.js",
     "devStartAuth": "nodemon authServer.js"
   },
   "repository": {
