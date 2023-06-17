@@ -18,8 +18,6 @@ export function Post() {
     );
   }
 
-  console.log("hara>>", post?.images);
-
   return (
     <>
       <h1>{post.title}</h1>

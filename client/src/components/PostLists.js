@@ -7,25 +7,6 @@ import "./PostList.css";
 import { useState } from "react";
 import axios from "axios";
 
-function Card({ images, title, body }) {
-  return (
-    <div className="card">
-      {images?.length > 0 &&
-        images?.map((i) => {
-          <img
-            src={`http://localhost:8000/v1/image/${i.fileName}`}
-            alt="Card"
-            className="card-img-top"
-          />;
-        })}
-      <div className="card-body">
-        <h5 className="card-title">{title}</h5>
-        <p className="card-text">{body}</p>
-      </div>
-    </div>
-  );
-}
-
 function PopupInput(props) {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
@@ -57,7 +38,7 @@ function PopupInput(props) {
         <div className="App">
           <button
             type="submit"
-            className="btn btn-primary"
+            className="btn btn-secondary"
             onClick={() => {
               props.onClose();
             }}
@@ -117,28 +98,38 @@ export function PostList() {
   if (error) return <h1 className="error-msg">{error}</h1>;
 
   return (
-    <div>
-      {" "}
+    <div className="list-contianer">
+      {/* <div className="background-image"></div>{" "} */}
       <button className="add-post-btn" onClick={handleButtonClick}>
         Add Post
       </button>
-      <div className="block-grid">
-        {isPopupOpen && <PopupInput onClose={handlePopupClose} />}
-        {posts?.data.map((post) => {
-          return (
-            <h1 key={post.id}>
-              <Link to={`/posts/${post.id}`}>
-                <div className="card-container">
-                  <Card
-                    title={post.title}
-                    body={post.body}
-                    images={post.images}
+      <div className="card-page card-container">
+        <div className="card-list">
+          {isPopupOpen && <PopupInput onClose={handlePopupClose} />}
+          {posts?.data.map((card) => (
+            <Link to={`/posts/${card.id}`}>
+              <div className="card" key={card.id}>
+                {card.image ? (
+                  <img
+                    src={card.image}
+                    alt={card.title}
+                    className="card-image"
                   />
+                ) : (
+                  <div className="dummy-image" />
+                )}
+                <div className="card-content">
+                  <h3 className="card-heading">{card.title}</h3>
+                  <p className="card-text">{card.body}</p>
                 </div>
-              </Link>
-            </h1>
-          );
-        })}
+              </div>
+            </Link>
+          ))}
+        </div>
+
+        <button className="add-post-button" onClick={handleButtonClick}>
+          Add Post
+        </button>
       </div>
     </div>
   );
