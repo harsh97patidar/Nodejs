@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAsync } from "../hooks/useAsync";
 import { getPosts } from "../services/posts";
 import UploadImage from "./uploadImage";
@@ -84,6 +84,8 @@ function PopupInput(props) {
 export function PostList() {
   const { loading, error, value: posts } = useAsync(getPosts);
 
+  const navigate = useNavigate();
+
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const handleButtonClick = () => {
@@ -97,9 +99,14 @@ export function PostList() {
   if (loading) return <h1>Loading</h1>;
   if (error) return <h1 className="error-msg">{error}</h1>;
 
+  const handleClick = () => {
+    navigate("/login");
+  };
+
   return (
     <div className="list-contianer">
       {/* <div className="background-image"></div>{" "} */}
+      <button onClick={handleClick}>Go to New Route</button>
       <button className="add-post-btn" onClick={handleButtonClick}>
         Add Post
       </button>
