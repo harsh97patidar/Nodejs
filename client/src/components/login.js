@@ -28,6 +28,8 @@ const Login = () => {
     window.google?.accounts?.id?.prompt();
   }, []);
 
+  console.log("comming in login");
+
   return (
     <div className="login-container">
       <div className="background-image"></div>

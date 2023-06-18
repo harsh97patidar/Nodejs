@@ -6,8 +6,6 @@ import { PostProvider } from "./contexts/PostContext";
 import Login from "./components/login";
 
 function App() {
-  console.log("In app>");
-
   return (
     <div className="container">
       <Routes>
