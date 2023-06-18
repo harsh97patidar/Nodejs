@@ -99,17 +99,20 @@ export function PostList() {
   if (loading) return <h1>Loading</h1>;
   if (error) return <h1 className="error-msg">{error}</h1>;
 
-  const handleClick = () => {
+  const handleLogout = () => {
+    localStorage.removeItem("token");
     navigate("/login");
   };
 
   return (
     <div className="list-contianer">
       {/* <div className="background-image"></div>{" "} */}
-      <button onClick={handleClick}>Go to New Route</button>
-      <button className="add-post-btn" onClick={handleButtonClick}>
-        Add Post
-      </button>
+      <div className="header-container">
+        <button className="add-post-btn" onClick={handleButtonClick}>
+          Add Post
+        </button>
+        <button onClick={handleLogout}>Logout</button>
+      </div>
       <div className="card-page card-container">
         <div className="card-list">
           {isPopupOpen && <PopupInput onClose={handlePopupClose} />}

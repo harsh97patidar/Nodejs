@@ -1,12 +1,17 @@
 import React, { useEffect } from "react";
 
 import "./login.css";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
+
   const handleCredentialResponse = (response) => {
     const token = response.credential;
 
-    console.log("token", token);
+    localStorage.setItem("token", token);
+
+    navigate("/");
   };
 
   window.google?.accounts?.id?.initialize({
