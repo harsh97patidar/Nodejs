@@ -3,7 +3,7 @@ const morgan = require("morgan");
 const dotenv = require("dotenv");
 const errorHandler = require("./middleware/error");
 const runMigration = require("./allMigration");
-// const authenticateToken = require("./authenticate");
+const authenticateToken = require("./authenticate");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const app = express();
@@ -13,8 +13,14 @@ const post = require("./routes/post");
 const comment = require("./routes/comment");
 const imageRoutes = require("./routes/image");
 
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
+  next();
+});
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(authenticateToken);
 
 // Log API calls using Morgan
 app.use(morgan("combined"));

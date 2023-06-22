@@ -1,13 +1,14 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useAsync } from "../hooks/useAsync";
-import { getPosts } from "../services/posts";
+import { useAsync, useAsyncFn } from "../hooks/useAsync";
+import { createPost, getPosts } from "../services/posts";
 import UploadImage from "./uploadImage";
 
 import "./PostList.css";
 import { useState } from "react";
-import axios from "axios";
 
 function PopupInput(props) {
+  const createPostFn = useAsyncFn(createPost);
+
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [file, setFile] = useState();
@@ -26,7 +27,7 @@ function PopupInput(props) {
     formData.append("title", title);
     formData.append("body", body);
 
-    axios.post("http://localhost:8000/v1/post", formData);
+    createPostFn(formData);
 
     event.preventDefault();
     props.onClose();
@@ -111,7 +112,9 @@ export function PostList() {
         <button className="add-post-btn" onClick={handleButtonClick}>
           Add Post
         </button>
-        <button onClick={handleLogout}>Logout</button>
+        <button className="logout-btn" onClick={handleLogout}>
+          Logout
+        </button>
       </div>
       <div className="card-page card-container">
         <div className="card-list">

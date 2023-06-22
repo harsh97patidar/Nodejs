@@ -13,8 +13,6 @@ function RequireAuth({ children, redirectTo, token }) {
 function AppRoute() {
   const token = localStorage.getItem("token");
 
-  console.log("token", token);
-
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
