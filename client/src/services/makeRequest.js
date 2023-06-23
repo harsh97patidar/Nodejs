@@ -9,11 +9,8 @@ export function makeRequest(url, options) {
   const requestOptions = {
     ...options,
     headers: {
-      // Add your headers here
       Authorization: `Bearer ${localStorage.getItem("token")}`,
-      // "Content-Type": "application/json",
-      "Content-Type": "text/plain",
-      // Other headers...
+      "Content-Type": "application/json",
     },
   };
 

@@ -8,6 +8,8 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const app = express();
 
+app.options("*", cors());
+
 // Routes
 const post = require("./routes/post");
 const comment = require("./routes/comment");
@@ -27,10 +29,6 @@ app.use(morgan("combined"));
 
 dotenv.config();
 
-app.use(cors());
-
-app.options("*", cors());
-
 app.get("/", (req, res) => {
   res.send("Hi");
 });
@@ -48,5 +46,5 @@ app.use(errorHandler);
 
 app.listen(process.env.PORT, async () => {
   console.log(`Server is listening on port ${process.env.PORT}`);
-  // await runMigration();
+  await runMigration();
 });

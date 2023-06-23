@@ -8,8 +8,6 @@ dotenv.config();
 
 const { OAuth2Client } = require("google-auth-library");
 
-console.log("###", process.env.CLIENT_ID);
-
 const client = new OAuth2Client(process.env.CLIENT_ID);
 
 const authenticateToken = async (req, res, next) => {
