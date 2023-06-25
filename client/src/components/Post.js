@@ -12,10 +12,11 @@ export function Post() {
     execute: createCommentFn,
   } = useAsyncFn(createComment);
 
-  function onCommentCreate(message) {
-    return createCommentFn({ postId: post.id, message, userId: 1 }).then(
-      createLocalComment
-    );
+  async function onCommentCreate(message) {
+    return createCommentFn({
+      postId: post.id,
+      message,
+    }).then(createLocalComment);
   }
 
   return (

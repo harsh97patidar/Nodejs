@@ -7,6 +7,8 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const { OAuth2Client } = require("google-auth-library");
+const { createUser } = require("./controller/userController");
+const { getUserByEmail } = require("./utils/common");
 
 const client = new OAuth2Client(process.env.CLIENT_ID);
 
@@ -21,6 +23,13 @@ const authenticateToken = async (req, res, next) => {
 
     const payload = ticket.getPayload();
     req.user = payload; // Store the user information in the request object
+
+    // Check if the user exists in the user table, and create if not
+    const user = await getUserByEmail(payload.email);
+
+    if (!user?.length) {
+      await createUser(payload);
+    }
 
     next();
   } catch (error) {

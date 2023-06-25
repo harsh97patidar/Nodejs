@@ -1,6 +1,9 @@
 const client = require("../database");
+const jwtDecode = require("jwt-decode");
+
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 const ErrorHandler = require("../utils/errorHandler");
+const { getUserByEmail } = require("../utils/common");
 
 exports.getComments = catchAsyncErrors(async (req, res, next) => {
   const { id: postId } = req.params;
@@ -22,7 +25,13 @@ exports.getComments = catchAsyncErrors(async (req, res, next) => {
 });
 
 exports.createComment = catchAsyncErrors(async (req, res, next) => {
-  const { message, userId, parentId } = req.body;
+  const { message, parentId } = req.body;
+
+  const token = req.headers.authorization.split(" ")[1];
+
+  const userInfo = jwtDecode(token);
+
+  const userEmail = userInfo?.email;
 
   const { id: postId } = req.params;
 
@@ -32,11 +41,13 @@ exports.createComment = catchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHandler("invalid message", 404));
   }
 
-  if (!userId) {
-    if (!commentId) {
-      return next(new ErrorHandler("No User found with ths ID", 404));
-    }
+  const user = await getUserByEmail(userEmail);
+
+  if (!user.length) {
+    return next(new ErrorHandler("User Not Found", 404));
   }
+
+  const userId = user[0].id;
 
   if (parentId)
     sqlQuery = `Insert INTO comment (message, "userId", "parentId", "postId", "updatedAt") VALUES ('${message}','${userId}','${parentId}','${postId}', NOW())`;

@@ -6,7 +6,6 @@ const {
   deleteComment,
   toggleLike,
 } = require("../controller/commentController");
-const { route } = require("./post");
 
 const router = express.Router();
 
