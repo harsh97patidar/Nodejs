@@ -18,14 +18,16 @@ const dateFormatter = new Intl.DateTimeFormat(undefined, {
   timeStyle: "short",
 });
 
-export function Comment({
-  id,
-  message,
-  user = { name: "harshvardhan", id: 1 },
-  createdAt,
-  likeCount = 0,
-  likedByMe = "harsh",
-}) {
+export function Comment(props) {
+  const {
+    id,
+    message,
+    user = { id: props?.userId, email: props?.email, name: props?.name },
+    createdAt,
+    likeCount = 0,
+    likedByMe,
+  } = props;
+
   const [areChildrenHidden, setAreChildrenHidden] = useState(false);
   const [isReplying, setIsReplying] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -109,7 +111,7 @@ export function Comment({
             Icon={FaReply}
             aria-label={isReplying ? "Cancel Reply" : "Reply"}
           />
-          {user?.id === currentUser.id && (
+          {user?.email === currentUser.email && (
             <>
               <IconBtn
                 onClick={() => setIsEditing((prev) => !prev)}

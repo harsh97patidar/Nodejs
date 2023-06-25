@@ -24,9 +24,11 @@ exports.getPostById = catchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHandler("No Post found with ths ID", 404));
   }
 
-  const comments = await client.query(
-    `SELECT * FROM comment WHERE "postId" = ${postId} ORDER BY "createdAt" DESC`
-  );
+  const comments = await client.query(`SELECT c.*, u.email, u.name
+  FROM comment c
+  JOIN "user" u ON c."userId" = u.id
+  WHERE c."postId" = ${postId}
+  ORDER BY "createdAt" DESC`);
 
   const images = await client.query(
     `SELECT * FROM image WHERE "postId" = ${postId}`
