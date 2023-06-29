@@ -1,17 +1,18 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useAsync, useAsyncFn } from "../hooks/useAsync";
-import { createPost, getPosts } from "../services/posts";
+import { useAsync } from "../hooks/useAsync";
+import { getPosts } from "../services/posts";
 import UploadImage from "./uploadImage";
 
 import "./PostList.css";
 import { useState } from "react";
+import axios from "axios";
 
-function PopupInput(props) {
-  const createPostFn = useAsyncFn(createPost);
-
+const PopupInput = (props) => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [file, setFile] = useState();
+
+  // const createPostFn = useAsyncFn(createPost);
 
   const handleTitle = (event) => {
     setTitle(event.target.value);
@@ -27,8 +28,16 @@ function PopupInput(props) {
     formData.append("title", title);
     formData.append("body", body);
 
-    createPostFn(formData);
+    // createPostFn(formData);
 
+    const requestOptions = {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+      },
+    };
+
+    axios.post("http://localhost:8000/v1/post", formData, requestOptions);
     event.preventDefault();
     props.onClose();
   };
@@ -80,7 +89,7 @@ function PopupInput(props) {
       </div>
     </div>
   );
-}
+};
 
 export function PostList() {
   const { loading, error, value: posts } = useAsync(getPosts);
@@ -122,10 +131,6 @@ export function PostList() {
           {posts?.data.map((card) => (
             <Link to={`/posts/${card.id}`}>
               <div className="card" key={card.id}>
-                {console.log(
-                  "image",
-                  `${process.env.REACT_APP_SERVER_URL}/image/${card?.filename}`
-                )}
                 {card?.filename ? (
                   <img
                     src={`${process.env.REACT_APP_SERVER_URL}/image/${card?.filename}`}

@@ -5,21 +5,20 @@ import { PostProvider } from "../contexts/PostContext";
 import { Post } from "./Post";
 import { PostList } from "./PostLists";
 
-function RequireAuth({ children, redirectTo, token }) {
-  let isAuthenticated = token;
+function RequireAuth({ children, redirectTo }) {
+  let isAuthenticated = localStorage.getItem("token");
   return isAuthenticated ? children : <Navigate to={redirectTo} />;
 }
 
 function AppRoute() {
-  const token = localStorage.getItem("token");
-
   return (
     <Routes>
+      <Route path="/" element={<Navigate to="/posts" />} />
       <Route path="/login" element={<Login />} />
       <Route
-        path="/"
+        path="/posts"
         element={
-          <RequireAuth redirectTo="/login" token={token}>
+          <RequireAuth redirectTo="/login">
             <PostList />
           </RequireAuth>
         }
@@ -28,7 +27,7 @@ function AppRoute() {
       <Route
         path="/posts/:id"
         element={
-          <RequireAuth redirectTo="/login" token={token}>
+          <RequireAuth redirectTo="/login">
             <PostProvider>
               <Post />
             </PostProvider>

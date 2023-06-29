@@ -6,12 +6,14 @@ import { useNavigate } from "react-router-dom";
 const Login = () => {
   const navigate = useNavigate();
 
-  const handleCredentialResponse = (response) => {
+  const handleCredentialResponse = async (response) => {
     const token = response.credential;
 
-    localStorage.setItem("token", token);
+    await localStorage.setItem("token", token);
 
-    navigate("/");
+    console.log("calling>");
+
+    navigate("/posts");
   };
 
   window.google?.accounts?.id?.initialize({

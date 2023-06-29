@@ -16,7 +16,11 @@ export function makeRequest(url, options) {
 
   return api(url, requestOptions)
     .then((res) => res.data)
-    .catch((error) =>
-      Promise.reject(error?.response?.data?.message ?? "Error")
-    );
+    .catch((error) => {
+      if (error?.response?.status) {
+        localStorage.removeItem("token");
+      }
+
+      return Promise.reject(error?.response?.data?.message ?? "Error");
+    });
 }
