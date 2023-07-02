@@ -24,12 +24,6 @@ body {
   line-height: 1.4;
 }
 
-.container {
-  max-width: 1200px;
-  width: calc(100vw - 4rem);
-  margin: 2rem auto;
-}
-
 button {
   font-size: inherit;
   font-family: inherit;

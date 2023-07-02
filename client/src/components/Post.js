@@ -20,7 +20,7 @@ export function Post() {
   }
 
   return (
-    <>
+    <div className="post-page">
       <h1>{post.title}</h1>
       {post?.images?.length > 0 &&
         post?.images?.map((i) => {
@@ -46,6 +46,6 @@ export function Post() {
           </div>
         )}
       </section>
-    </>
+    </div>
   );
 }

@@ -6,7 +6,7 @@ const ErrorHandler = require("../utils/errorHandler");
 exports.getPosts = catchAsyncErrors(async (req, res, next) => {
   const results = await client.query(`SELECT p.*, i.filename
   FROM post p
-  LEFT JOIN image i ON p.id = i."postId"
+  LEFT JOIN image i ON p.id = i."postId" 
 `);
 
   res.status(200).json({
@@ -63,10 +63,15 @@ exports.createPost = catchAsyncErrors(async (req, res, next) => {
   let response = { ...req.body };
 
   if (req.file && result && result.rows[0]) {
-    await axios.post("http://localhost:8000/v1/image", {
-      file: req.file,
-      postId: result.rows[0].id,
-    });
+    await axios.post(
+      "http://localhost:8000/v1/image",
+      {
+        file: req.file,
+        postId: result.rows[0].id,
+      },
+      req
+    );
+
     response = { ...req.body, image: req.file.filename };
 
     return res.status(200).json(response);

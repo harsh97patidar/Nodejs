@@ -1,6 +1,29 @@
+.post-page {
+  padding: 32px;
+}
+.logout-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}
+
+.list-contianer {
+  background-color: gray;
+}
 .header-container {
   display: flex;
+  height: 150px;
   column-gap: 16px;
+  align-items: center;
+  background-color: #007bff;
+  border-radius: 16px;
+  padding: 32px;
+  justify-content: center;
+  position: relative;
+}
+.heading {
+  font-size: 24px;
+  color: white;
 }
 .logout-btn {
   height: 48px;
@@ -12,6 +35,7 @@
   width: 100%;
   height: 100vh;
   background-color: rgb(186, 97, 112);
+  border: 2px solid red;
 }
 
 .background-image {
@@ -30,7 +54,7 @@
   border: 1px solid #ccc;
   border-radius: 5px;
   padding: 10px;
-  width: 300px;
+  width: 200px;
   overflow: auto;
   max-height: 400px;
 }
@@ -156,12 +180,12 @@
   box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.3);
 }
 
-.card {
+/* .card {
   width: 300px;
   margin: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
+} */
 
 .card-img-top {
   border-radius: 10px 10px 0 0;
@@ -251,17 +275,19 @@ label {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
+  padding-top: 16px;
 }
 
 .card-list {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  box-shadow: 0 0 5px grey;
+  border-radius: 16px;
 }
 
 .card {
-  width: 300px;
+  width: 270px;
   margin: 20px;
   padding: 20px;
   background-color: #fff;

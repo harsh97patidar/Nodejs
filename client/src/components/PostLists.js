@@ -2,10 +2,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAsync } from "../hooks/useAsync";
 import { getPosts } from "../services/posts";
 import UploadImage from "./uploadImage";
+import { GrClose } from "react-icons/gr";
 
 import "./PostList.css";
 import { useState } from "react";
 import axios from "axios";
+import CircleInitials from "./Logout/logout";
 
 const PopupInput = (props) => {
   const [title, setTitle] = useState("");
@@ -33,11 +35,14 @@ const PopupInput = (props) => {
     const requestOptions = {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
-        "Content-Type": "application/json",
       },
     };
 
-    axios.post("http://localhost:8000/v1/post", formData, requestOptions);
+    axios.post(
+      `${process.env.REACT_APP_SERVER_URL}/post`,
+      formData,
+      requestOptions
+    );
     event.preventDefault();
     props.onClose();
   };
@@ -45,16 +50,13 @@ const PopupInput = (props) => {
   return (
     <div className="popup-overlay">
       <div className="popup">
-        <div className="App">
-          <button
-            type="submit"
-            className="btn btn-secondary"
+        <div className="App relative">
+          <GrClose
+            className="absolute right-1 top-0"
             onClick={() => {
               props.onClose();
             }}
-          >
-            Close
-          </button>
+          />
           <h1>Create Post</h1>
           <form onSubmit={handleSubmit}>
             <div className="form-group">
@@ -109,22 +111,21 @@ export function PostList() {
   if (loading) return <h1>Loading</h1>;
   if (error) return <h1 className="error-msg">{error}</h1>;
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    navigate("/login");
-  };
-
   return (
     <div className="list-contianer">
-      {/* <div className="background-image"></div>{" "} */}
       <div className="header-container">
-        <button className="add-post-btn" onClick={handleButtonClick}>
-          Add Post
-        </button>
-        <button className="logout-btn" onClick={handleLogout}>
-          Logout
-        </button>
+        <div className="flex flex-col ">
+          <span className="heading">What would you like to post ?</span>
+          <button className="add-post-button mt-1" onClick={handleButtonClick}>
+            Add Post
+          </button>
+        </div>
+
+        <div className="logout-button">
+          <CircleInitials />
+        </div>
       </div>
+
       <div className="card-page card-container">
         <div className="card-list">
           {isPopupOpen && <PopupInput onClose={handlePopupClose} />}
@@ -148,10 +149,6 @@ export function PostList() {
             </Link>
           ))}
         </div>
-
-        <button className="add-post-button" onClick={handleButtonClick}>
-          Add Post
-        </button>
       </div>
     </div>
   );

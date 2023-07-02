@@ -3,7 +3,7 @@ import AppRoute from "./components/Routes";
 
 function App() {
   return (
-    <div className="container">
+    <div>
       <AppRoute />
     </div>
   );
