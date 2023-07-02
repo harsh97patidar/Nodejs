@@ -8,6 +8,7 @@ import "./PostList.css";
 import { useState } from "react";
 import axios from "axios";
 import CircleInitials from "./Logout/logout";
+import { getToken } from "../utils";
 
 const PopupInput = (props) => {
   const [title, setTitle] = useState("");
@@ -137,6 +138,9 @@ export function PostList() {
                     src={`${process.env.REACT_APP_SERVER_URL}/image/${card?.filename}`}
                     alt="card"
                     className="card-image"
+                    headers={{
+                      Authorization: getToken(),
+                    }}
                   />
                 ) : (
                   <div className="dummy-image" />

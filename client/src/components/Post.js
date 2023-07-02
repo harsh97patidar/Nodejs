@@ -1,6 +1,7 @@
 import { usePost } from "../contexts/PostContext";
 import { useAsyncFn } from "../hooks/useAsync";
 import { createComment } from "../services/comments";
+import { getToken } from "../utils";
 import { CommentForm } from "./CommentForm";
 import { CommentList } from "./CommentList";
 
@@ -19,6 +20,12 @@ export function Post() {
     }).then(createLocalComment);
   }
 
+  const headers = {
+    Authorization: `Bearer ${getToken()}`,
+  };
+
+  console.log("headers", headers);
+
   return (
     <div className="post-page">
       <h1>{post.title}</h1>
@@ -29,6 +36,7 @@ export function Post() {
               src={`${process.env.REACT_APP_SERVER_URL}/image/${i.filename}`}
               alt="Card"
               height="350"
+              headers={headers}
             />
           );
         })}

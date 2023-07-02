@@ -22,12 +22,16 @@ app.use(function (req, res, next) {
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(authenticateToken);
 
 // Log API calls using Morgan
 app.use(morgan("combined"));
 
 dotenv.config();
+
+// Import Routes - Auth is not applied
+app.use("/v1", imageRoutes);
+
+app.use(authenticateToken);
 
 app.get("/", (req, res) => {
   res.send("Hi");
@@ -38,9 +42,6 @@ app.use("/v1", post);
 
 // Commets Routes
 app.use("/v1", comment);
-
-// Import Routes
-app.use("/v1", imageRoutes);
 
 app.use(errorHandler);
 

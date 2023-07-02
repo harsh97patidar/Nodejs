@@ -63,14 +63,28 @@ exports.createPost = catchAsyncErrors(async (req, res, next) => {
   let response = { ...req.body };
 
   if (req.file && result && result.rows[0]) {
+    console.log("req>>", req.headers.authorization);
+
+    // const header = {
+    //   authorization: req.headers.authorization,
+    // };
+    const requestOptions = {
+      headers: {
+        Authorization: req.headers.authorization,
+        "Content-Type": "application/json",
+      },
+    };
+
     await axios.post(
       "http://localhost:8000/v1/image",
       {
         file: req.file,
         postId: result.rows[0].id,
       },
-      req
+      requestOptions
     );
+
+    console.log("later<");
 
     response = { ...req.body, image: req.file.filename };
 
