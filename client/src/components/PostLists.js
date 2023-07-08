@@ -39,11 +39,15 @@ const PopupInput = (props) => {
       },
     };
 
-    axios.post(
-      `${process.env.REACT_APP_SERVER_URL}/post`,
-      formData,
-      requestOptions
-    );
+    axios
+      .post(
+        `${process.env.REACT_APP_SERVER_URL}/post`,
+        formData,
+        requestOptions
+      )
+      .then(() => {
+        window.location.reload();
+      });
     event.preventDefault();
     props.onClose();
   };

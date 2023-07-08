@@ -76,15 +76,13 @@ exports.createPost = catchAsyncErrors(async (req, res, next) => {
     };
 
     await axios.post(
-      "http://localhost:8000/v1/image",
+      `${process.env.APP_URL}/image`,
       {
         file: req.file,
         postId: result.rows[0].id,
       },
       requestOptions
     );
-
-    console.log("later<");
 
     response = { ...req.body, image: req.file.filename };
 

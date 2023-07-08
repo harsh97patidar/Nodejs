@@ -37,6 +37,7 @@ export function Post() {
               alt="Card"
               height="350"
               headers={headers}
+              className="w-4/12 h-80"
             />
           );
         })}

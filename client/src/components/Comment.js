@@ -1,5 +1,5 @@
 import { IconBtn } from "./IconBtn";
-import { FaEdit, FaHeart, FaRegHeart, FaReply, FaTrash} from "react-icons/fa";
+import { FaEdit, FaHeart, FaRegHeart, FaReply, FaTrash } from "react-icons/fa";
 import { usePost } from "../contexts/PostContext";
 import { CommentList } from "./CommentList";
 import { useState } from "react";
@@ -68,6 +68,9 @@ export function Comment(props) {
   function onCommentDelete() {
     return deleteCommentFn
       .execute({ postId: post.id, id })
+      .then(() => {
+        window.location.reload();
+      })
       .then((comment) => deleteLocalComment(comment.id));
   }
 
@@ -78,7 +81,7 @@ export function Comment(props) {
   }
 
   return (
-    <div className="comment-page">
+    <>
       <div className="comment">
         <div className="header">
           <span className="name">{user?.name}</span>
@@ -168,6 +171,6 @@ export function Comment(props) {
           </button>
         </>
       )}
-    </div>
+    </>
   );
 }

@@ -120,7 +120,7 @@ button {
   --hue: 235;
   --color: hsl(var(--hue), 100%, 67%);
   padding: 0.5em 1em;
-  background: var(--color);
+  background: hsl(235, 100%, 67%);
   border: none;
   color: white;
   border-radius: 0.5em;
