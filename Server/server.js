@@ -3,7 +3,7 @@ const morgan = require("morgan");
 const dotenv = require("dotenv");
 const errorHandler = require("./middleware/error");
 const runMigration = require("./allMigration");
-const authenticateToken = require("./authenticate");
+// const authenticateToken = require("./authenticate");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const app = express();
@@ -37,7 +37,7 @@ dotenv.config();
 // Import Routes - Auth is not applied
 app.use("/v1", imageRoutes);
 
-app.use(authenticateToken);
+// app.use(authenticateToken);
 
 app.get("/", (req, res) => {
   res.send("Hi");
