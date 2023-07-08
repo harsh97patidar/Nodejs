@@ -5,11 +5,12 @@ const api = axios.create({
   withCredentials: false,
 });
 
-export function makeRequest(url, options) {
+export async function makeRequest(url, options) {
+  const token = await `Bearer ${localStorage.getItem("token")}`;
   const requestOptions = {
     ...options,
     headers: {
-      Authorization: `Bearer ${localStorage.getItem("token")}`,
+      Authorization: token,
       "Content-Type": "application/json",
     },
   };
