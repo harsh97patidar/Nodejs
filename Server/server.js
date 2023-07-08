@@ -10,6 +10,12 @@ const app = express();
 
 app.options("*", cors());
 
+app.use(
+  cors({
+    origin: "https://postify-ui.onrender.com", // Replace with the allowed origin(s)
+  })
+);
+
 // Routes
 const post = require("./routes/post");
 const comment = require("./routes/comment");
